@@ -4,8 +4,16 @@ namespace Tests\Lexer;
 
 use App\Lexer\Lexer;
 use App\Token\TokenType;
+use Tests\TestCase;
 
-function check_equality($input, $test, $t)
+/**
+ * 
+ * @param string $input 
+ * @param array<array{TokenType,string}> $test 
+ * @param TestCase $t 
+ * @return void 
+ */
+function check_equality(string $input, array $test, TestCase $t): void
 {
 	$l = new Lexer($input);
 
@@ -19,6 +27,8 @@ function check_equality($input, $test, $t)
 
 test('next_token', function () {
 	$input = '=+(){},;';
+
+	/** @var array<array{TokenType,string}> $test*/
 	$test = [
 		[TokenType::ASSIGN, '='],
 		[TokenType::PLUS, '+'],
@@ -29,7 +39,9 @@ test('next_token', function () {
 		[TokenType::COMMA, ','],
 		[TokenType::SEMICOLON, ';'],
 		[TokenType::EOF, ''],
+		[TokenType::EOF, new Lexer('hello')],
 	];
+
 	check_equality($input, $test, $this);
 });
 

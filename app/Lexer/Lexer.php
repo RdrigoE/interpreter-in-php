@@ -4,8 +4,8 @@ namespace App\Lexer;
 
 use App\Token\Token;
 use App\Token\TokenType;
-use IntlChar;
-use NunoMaduro\Collision\Adapters\Phpunit\Printers\DefaultPrinter;
+
+use function App\Token\lookup_ident;
 
 class Lexer
 {
@@ -54,8 +54,8 @@ class Lexer
 				break;
 			default:
 				if (ctype_alpha($this->ch)) {
-					$tok->type = TokenType::IDENT;
 					$tok->literal = $this->read_identifier();
+					$tok->type = lookup_ident($tok->literal);
 					return $tok;
 				} else {
 					$tok = new Token(TokenType::ILLEGAL, $this->ch);
@@ -66,7 +66,7 @@ class Lexer
 		return $tok;
 	}
 
-	private function read_char()
+	private function read_char(): void
 	{
 		if ($this->read_position > strlen($this->input)) {
 			$this->ch = '';
@@ -77,7 +77,7 @@ class Lexer
 		$this->read_position += 1;
 	}
 
-	private function read_identifier()
+	private function read_identifier(): string
 	{
 		$position = 0;
 

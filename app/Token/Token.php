@@ -6,9 +6,9 @@ namespace App\Token;
 /** @package Token */
 class Token
 {
-
 	public TokenType $type;
 	public string $literal;
+
 	public function __construct(TokenType $type = null, string  $literal = null)
 	{
 		if (!($type && $literal))
@@ -17,4 +17,3 @@ class Token
 		$this->literal = $literal;
 	}
 }
-
