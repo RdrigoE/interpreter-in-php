@@ -39,7 +39,6 @@ test('next_token', function () {
 		[TokenType::COMMA, ','],
 		[TokenType::SEMICOLON, ';'],
 		[TokenType::EOF, ''],
-		[TokenType::EOF, new Lexer('hello')],
 	];
 
 	check_equality($input, $test, $this);
