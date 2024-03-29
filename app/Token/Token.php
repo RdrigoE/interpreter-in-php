@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Token;
+
+
+/** @package Token */
+class Token
+{
+
+	public TokenType $type;
+	public string $literal;
+	public function __construct(TokenType $type = null, string  $literal = null)
+	{
+		if (!($type && $literal))
+			return;
+		$this->type = $type;
+		$this->literal = $literal;
+	}
+}
+

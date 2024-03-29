@@ -1,0 +1,22 @@
+{
+    "name": "reusebio/interpreter-in-go",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./app/",
+            "Tests\\": "./tests/unit"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rodrigo Eusébio",
+            "email": "rodrigojeusebio@gmail.com"
+        }
+    ],
+    "require-dev": {
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
