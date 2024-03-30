@@ -4,16 +4,16 @@ namespace Tests\Lexer;
 
 use App\Lexer\Lexer;
 use App\Token\TokenType;
-use Tests\TestCase;
+use PHPUnit\Framework\Assert;
 
 /**
  * 
  * @param string $input 
  * @param array<array{TokenType,string}> $test 
- * @param TestCase $t 
+ * @param Assert $t 
  * @return void 
  */
-function check_equality(string $input, array $test, TestCase $t): void
+function check_equality(string $input, array $test, Assert $t): void
 {
 	$l = new Lexer($input);
 
@@ -38,7 +38,7 @@ test('next_token', function () {
 		[TokenType::RBRACE, '}'],
 		[TokenType::COMMA, ','],
 		[TokenType::SEMICOLON, ';'],
-		[TokenType::EOF, ''],
+		[TokenType::EOF, ""],
 	];
 
 	check_equality($input, $test, $this);
@@ -90,5 +90,6 @@ test('next_token_bigger', function () {
 		[TokenType::SEMICOLON, ";"],
 		[TokenType::EOF, ""],
 	];
+
 	check_equality($input, $test, $this);
 });

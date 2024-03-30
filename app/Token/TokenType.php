@@ -23,17 +23,5 @@ enum TokenType: string
 	case FUNCTION = "FUNCTION";
 	case LET = "LET";
 }
-/** @var array<string, TokenType> KEYWORDS  */
-const KEYWORDS = [
-	'fn' => TokenType::FUNCTION,
-	'let' => TokenType::LET
-];
 
-function lookup_ident(string $ident): TokenType
-{
-	if (key_exists($ident, KEYWORDS)) {
-		return KEYWORDS[$ident];
-	}
 
-	return TokenType::IDENT;
-}

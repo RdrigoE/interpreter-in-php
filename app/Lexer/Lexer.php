@@ -5,14 +5,18 @@ namespace App\Lexer;
 use App\Token\Token;
 use App\Token\TokenType;
 
-use function App\Token\lookup_ident;
-
 class Lexer
 {
 	private string $input;
 	private int $position;
 	private int $read_position;
 	private string $ch;
+
+	/** @var array<string, TokenType> KEYWORDS  */
+	const KEYWORDS = [
+		'fn' => TokenType::FUNCTION,
+		'let' => TokenType::LET
+	];
 
 	public function __construct(string $input)
 	{
@@ -24,6 +28,10 @@ class Lexer
 	public function next_token(): Token
 	{
 		$tok = new Token();
+
+		$this->skip_whitespace();
+
+		var_dump($this->ch);
 		switch ($this->ch) {
 			case '=':
 				$tok = new Token(TokenType::ASSIGN, $this->ch);
@@ -49,32 +57,55 @@ class Lexer
 			case '}':
 				$tok = new Token(TokenType::RBRACE, $this->ch);
 				break;
-			case 0:
+			case "":
 				$tok = new Token(TokenType::EOF, '');
 				break;
 			default:
 				if (ctype_alpha($this->ch)) {
 					$tok->literal = $this->read_identifier();
-					$tok->type = lookup_ident($tok->literal);
+					$tok->type = $this->lookup_ident($tok->literal);
+					return $tok;
+				} else if (ctype_digit($this->ch)) {
+					$tok->type = TokenType::INT;
+					$tok->literal = $this->read_number();
 					return $tok;
 				} else {
 					$tok = new Token(TokenType::ILLEGAL, $this->ch);
 				}
 		}
 
+
 		$this->read_char();
 		return $tok;
+	}
+
+	private function skip_whitespace(): void
+	{
+		if (ctype_space($this->ch)) {
+			$this->read_char();
+		}
 	}
 
 	private function read_char(): void
 	{
 		if ($this->read_position > strlen($this->input)) {
-			$this->ch = '';
+			$this->ch = 'eof';
 		} else {
 			$this->ch = $this->input[$this->read_position];
 		}
 		$this->position = $this->read_position;
 		$this->read_position += 1;
+	}
+
+	private function read_number(): string
+	{
+		$position = 0;
+
+		while (ctype_digit($this->ch) > $position && $this->ch[$position]) {
+			$this->read_char();
+		}
+
+		return substr($this->input, $position, $this->position);
 	}
 
 	private function read_identifier(): string
@@ -86,5 +117,14 @@ class Lexer
 		}
 
 		return substr($this->input, $position, $this->position);
+	}
+
+	private function lookup_ident(string $ident): TokenType
+	{
+		if (key_exists($ident, self::KEYWORDS)) {
+			return self::KEYWORDS[$ident];
+		}
+
+		return TokenType::IDENT;
 	}
 }
