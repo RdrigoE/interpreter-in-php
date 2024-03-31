@@ -157,9 +157,9 @@ class Lexer
 		return substr($this->input, $position, $this->position - $position);
 	}
 
-	private function is_letter($string): bool
+	private function is_letter(string $string): bool
 	{
-		return  preg_match("/[a-zA-Z]/", $string);
+		return (bool) preg_match("/[a-zA-Z]/", $string);
 	}
 
 	private function lookup_ident(string $ident): TokenType
