@@ -31,8 +31,8 @@ class Lexer
 
 		$this->skip_whitespace();
 
-		var_dump($this->ch);
-		switch ($this->ch) {
+		switch ($this->ch)
+		{
 			case '=':
 				$tok = new Token(TokenType::ASSIGN, $this->ch);
 				break;
@@ -61,15 +61,20 @@ class Lexer
 				$tok = new Token(TokenType::EOF, '');
 				break;
 			default:
-				if (ctype_alpha($this->ch)) {
+				if (ctype_alpha($this->ch))
+				{
 					$tok->literal = $this->read_identifier();
 					$tok->type = $this->lookup_ident($tok->literal);
 					return $tok;
-				} else if (ctype_digit($this->ch)) {
+				}
+				else if (ctype_digit($this->ch))
+				{
 					$tok->type = TokenType::INT;
 					$tok->literal = $this->read_number();
 					return $tok;
-				} else {
+				}
+				else
+				{
 					$tok = new Token(TokenType::ILLEGAL, $this->ch);
 				}
 		}
@@ -81,16 +86,20 @@ class Lexer
 
 	private function skip_whitespace(): void
 	{
-		if (ctype_space($this->ch)) {
+		if (in_array($this->ch, [' ', "\r", "\n", "\t"]))
+		{
 			$this->read_char();
 		}
 	}
 
 	private function read_char(): void
 	{
-		if ($this->read_position > strlen($this->input)) {
-			$this->ch = 'eof';
-		} else {
+		if ($this->read_position >= strlen($this->input))
+		{
+			$this->ch = '';
+		}
+		else
+		{
 			$this->ch = $this->input[$this->read_position];
 		}
 		$this->position = $this->read_position;
@@ -99,29 +108,37 @@ class Lexer
 
 	private function read_number(): string
 	{
-		$position = 0;
+		$position = $this->position;
 
-		while (ctype_digit($this->ch) > $position && $this->ch[$position]) {
+		while (ctype_digit($this->ch))
+		{
 			$this->read_char();
 		}
 
-		return substr($this->input, $position, $this->position);
+		return substr($this->input, $position, $this->position - $position);
 	}
 
 	private function read_identifier(): string
 	{
-		$position = 0;
+		$position = $this->position;
 
-		while (strlen($this->ch) > $position && $this->ch[$position]) {
+		while ($this->is_letter($this->ch))
+		{
 			$this->read_char();
 		}
 
-		return substr($this->input, $position, $this->position);
+		return substr($this->input, $position, $this->position - $position);
+	}
+
+	private function is_letter($string): bool
+	{
+		return  preg_match("/[a-zA-Z]/", $string);
 	}
 
 	private function lookup_ident(string $ident): TokenType
 	{
-		if (key_exists($ident, self::KEYWORDS)) {
+		if (key_exists($ident, self::KEYWORDS))
+		{
 			return self::KEYWORDS[$ident];
 		}
 

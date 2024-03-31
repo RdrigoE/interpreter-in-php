@@ -17,15 +17,19 @@ function check_equality(string $input, array $test, Assert $t): void
 {
 	$l = new Lexer($input);
 
-	foreach ($test as [$token, $literal]) {
+	foreach ($test as [$token, $literal])
+	{
 		$tok = $l->next_token();
+		var_dump($tok->literal);
+		var_dump($literal);
 
 		$t->assertSame($tok->type, $token);
 		$t->assertSame($tok->literal, $literal);
 	}
 }
 
-test('next_token', function () {
+test('next_token', function ()
+{
 	$input = '=+(){},;';
 
 	/** @var array<array{TokenType,string}> $test*/
@@ -44,13 +48,9 @@ test('next_token', function () {
 	check_equality($input, $test, $this);
 });
 
-test('next_token_bigger', function () {
-	$input = 'let five = 5;
-		let ten = 10;
-		let add = fn(x, y) {
-		x + y;
-		};
-		let result = add(five, ten);';
+test('next_token_bigger', function ()
+{
+	$input = "let five = 5; let ten = 10; let add = fn(x, y) { x + y; }; let result = add(five, ten);";
 	$test = [
 		[TokenType::LET, "let"],
 		[TokenType::IDENT, "five"],
@@ -66,11 +66,11 @@ test('next_token_bigger', function () {
 		[TokenType::IDENT, "add"],
 		[TokenType::ASSIGN, "="],
 		[TokenType::FUNCTION, "fn"],
-		[TokenType::LPAREN, "["],
+		[TokenType::LPAREN, "("],
 		[TokenType::IDENT, "x"],
 		[TokenType::COMMA, ","],
 		[TokenType::IDENT, "y"],
-		[TokenType::RPAREN, "]"],
+		[TokenType::RPAREN, ")"],
 		[TokenType::LBRACE, "{"],
 		[TokenType::IDENT, "x"],
 		[TokenType::PLUS, "+"],
@@ -86,7 +86,7 @@ test('next_token_bigger', function () {
 		[TokenType::IDENT, "five"],
 		[TokenType::COMMA, ","],
 		[TokenType::IDENT, "ten"],
-		[TokenType::RPAREN, "]"],
+		[TokenType::RPAREN, ")"],
 		[TokenType::SEMICOLON, ";"],
 		[TokenType::EOF, ""],
 	];
