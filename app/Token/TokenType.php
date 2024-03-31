@@ -9,9 +9,6 @@ enum TokenType: string
 		// Identifiers + literals
 	case IDENT = "IDENT"; // add, foobar, x, y, ...;
 	case INT = "INT"; // 1343456;
-		// Operators;
-	case ASSIGN = "=";
-	case PLUS = "+";
 		// Delimiters;
 	case COMMA = ",";
 	case SEMICOLON = ";";
@@ -22,6 +19,13 @@ enum TokenType: string
 		// Keywords;
 	case FUNCTION = "FUNCTION";
 	case LET = "LET";
+		// Operators
+	case ASSIGN = "=";
+	case PLUS = "+";
+	case MINUS = "-";
+	case BANG = "!";
+	case ASTERISK = "*";
+	case SLASH = "/";
+	case LT = "<";
+	case GT = ">";
 }
-
-

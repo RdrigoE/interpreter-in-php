@@ -36,6 +36,33 @@ class Lexer
 			case '=':
 				$tok = new Token(TokenType::ASSIGN, $this->ch);
 				break;
+			case '+':
+				$tok = new Token(TokenType::PLUS, $this->ch);
+				break;
+			case '-':
+				$tok = new Token(TokenType::MINUS, $this->ch);
+				break;
+			case '!':
+				$tok = new Token(TokenType::BANG, $this->ch);
+				break;
+			case '/':
+				$tok = new Token(TokenType::SLASH, $this->ch);
+				break;
+			case '*':
+				$tok = new Token(TokenType::ASTERISK, $this->ch);
+				break;
+			case '<':
+				$tok = new Token(TokenType::LT, $this->ch);
+				break;
+			case '>':
+				$tok = new Token(TokenType::GT, $this->ch);
+				break;
+			case ';':
+				$tok = new Token(TokenType::SEMICOLON, $this->ch);
+				break;
+			case ',':
+				$tok = new Token(TokenType::COMMA, $this->ch);
+				break;
 			case ';':
 				$tok = new Token(TokenType::SEMICOLON, $this->ch);
 				break;
