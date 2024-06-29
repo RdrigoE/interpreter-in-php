@@ -14,13 +14,13 @@ class Lexer
 
 	/** @var array<string, TokenType> KEYWORDS  */
 	const KEYWORDS = [
-		'fn' => TokenType::FUNCTION,
-		'let' => TokenType::LET
+		'fn'  => TokenType::FUNCTION ,
+		'let' => TokenType::LET,
 	];
 
 	public function __construct(string $input)
 	{
-		$this->input = $input;
+		$this->input         = $input;
 		$this->read_position = 0;
 		$this->read_char();
 	}
@@ -63,20 +63,11 @@ class Lexer
 			case ',':
 				$tok = new Token(TokenType::COMMA, $this->ch);
 				break;
-			case ';':
-				$tok = new Token(TokenType::SEMICOLON, $this->ch);
-				break;
 			case '(':
 				$tok = new Token(TokenType::LPAREN, $this->ch);
 				break;
 			case ')':
 				$tok = new Token(TokenType::RPAREN, $this->ch);
-				break;
-			case ',':
-				$tok = new Token(TokenType::COMMA, $this->ch);
-				break;
-			case '+':
-				$tok = new Token(TokenType::PLUS, $this->ch);
 				break;
 			case '{':
 				$tok = new Token(TokenType::LBRACE, $this->ch);
@@ -91,12 +82,12 @@ class Lexer
 				if (ctype_alpha($this->ch))
 				{
 					$tok->literal = $this->read_identifier();
-					$tok->type = $this->lookup_ident($tok->literal);
+					$tok->type    = $this->lookup_ident($tok->literal);
 					return $tok;
 				}
 				else if (ctype_digit($this->ch))
 				{
-					$tok->type = TokenType::INT;
+					$tok->type    = TokenType::INT;
 					$tok->literal = $this->read_number();
 					return $tok;
 				}
@@ -105,7 +96,6 @@ class Lexer
 					$tok = new Token(TokenType::ILLEGAL, $this->ch);
 				}
 		}
-
 
 		$this->read_char();
 		return $tok;
@@ -129,7 +119,7 @@ class Lexer
 		{
 			$this->ch = $this->input[$this->read_position];
 		}
-		$this->position = $this->read_position;
+		$this->position      = $this->read_position;
 		$this->read_position += 1;
 	}
 

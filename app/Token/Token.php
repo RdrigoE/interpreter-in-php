@@ -9,13 +9,13 @@ class Token
 	public TokenType $type;
 	public string $literal;
 
-	public function __construct(TokenType $type = null, string  $literal = null)
+	public function __construct(TokenType $type = null, string $literal = null)
 	{
-		if (!($type && isset($literal)))
+		if (! ($type && isset($literal)))
 		{
 			return;
 		}
-		$this->type = $type;
+		$this->type    = $type;
 		$this->literal = $literal;
 	}
 }
