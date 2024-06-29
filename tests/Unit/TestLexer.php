@@ -28,8 +28,7 @@ function check_equality(string $input, array $test, Assert $t): void
 	}
 }
 
-test('next_token', function ()
-{
+test('next_token', function () {
 	$input = '=+(){},;';
 
 	/** @var array<array{TokenType,string}> $test*/
@@ -48,10 +47,9 @@ test('next_token', function ()
 	check_equality($input, $test, $this);
 });
 
-test('next_token_bigger', function ()
-{
+test('next_token_bigger', function () {
 	$input = "let five = 5; let ten = 10; let add = fn(x, y) { x + y; }; let result = add(five, ten);";
-	$test = [
+	$test  = [
 		[TokenType::LET, "let"],
 		[TokenType::IDENT, "five"],
 		[TokenType::ASSIGN, "="],
@@ -65,7 +63,7 @@ test('next_token_bigger', function ()
 		[TokenType::LET, "let"],
 		[TokenType::IDENT, "add"],
 		[TokenType::ASSIGN, "="],
-		[TokenType::FUNCTION, "fn"],
+		[TokenType::FUNCTION , "fn"],
 		[TokenType::LPAREN, "("],
 		[TokenType::IDENT, "x"],
 		[TokenType::COMMA, ","],
@@ -94,10 +92,9 @@ test('next_token_bigger', function ()
 	check_equality($input, $test, $this);
 });
 
-test('next_token_bigger_signs', function ()
-{
+test('next_token_bigger_signs', function () {
 	$input = "let five = 5; let ten = 10; let add = fn(x, y) { x + y; }; let result = add(five, ten); !-/*5; 5 < 10 > 5;";
-	$test = [
+	$test  = [
 		[TokenType::LET, "let"],
 		[TokenType::IDENT, "five"],
 		[TokenType::ASSIGN, "="],
@@ -111,7 +108,7 @@ test('next_token_bigger_signs', function ()
 		[TokenType::LET, "let"],
 		[TokenType::IDENT, "add"],
 		[TokenType::ASSIGN, "="],
-		[TokenType::FUNCTION, "fn"],
+		[TokenType::FUNCTION , "fn"],
 		[TokenType::LPAREN, "("],
 		[TokenType::IDENT, "x"],
 		[TokenType::COMMA, ","],
@@ -133,6 +130,18 @@ test('next_token_bigger_signs', function ()
 		[TokenType::COMMA, ","],
 		[TokenType::IDENT, "ten"],
 		[TokenType::RPAREN, ")"],
+		[TokenType::SEMICOLON, ";"],
+		[TokenType::BANG, "!"],
+		[TokenType::MINUS, "-"],
+		[TokenType::SLASH, "/"],
+		[TokenType::ASTERISK, "*"],
+		[TokenType::INT, "5"],
+		[TokenType::SEMICOLON, ";"],
+		[TokenType::INT, "5"],
+		[TokenType::LT, "<"],
+		[TokenType::INT, "10"],
+		[TokenType::GT, ">"],
+		[TokenType::INT, "5"],
 		[TokenType::SEMICOLON, ";"],
 		[TokenType::EOF, ""],
 	];
