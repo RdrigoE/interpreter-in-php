@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Lexer\\LexerTest::testLexer":8},"times":{"Tests\\Lexer\\LexerTest::testLexer#0":0.003,"Tests\\Lexer\\LexerTest::testLexer#1":0.001,"Tests\\Lexer\\LexerTest::testLexer#2":0.001,"Tests\\Lexer\\LexerTest::testLexer":0.005}}
