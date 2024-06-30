@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Main;
+namespace App\REPL;
 
 use App\Lexer\Lexer;
 use App\Token\TokenType;

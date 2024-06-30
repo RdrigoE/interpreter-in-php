@@ -22,6 +22,5 @@ class Token
 	public function __tostring(): string
 	{
 		return "{TYPE: {$this->type->value}, LITERAL: $this->literal}\n";
-
 	}
 }
