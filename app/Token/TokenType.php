@@ -23,7 +23,7 @@ enum TokenType: string
 	case FALSE    = "FALSE";
 	case IF       = "IF";
 	case
-	ELSE     = "ELSE";
+	ELSE    = "ELSE";
 	case RETURN   = "RETURN";
 	// Operators
 	case ASSIGN   = "=";
@@ -36,4 +36,5 @@ enum TokenType: string
 	case GT       = ">";
 	case EQ       = "==";
 	case NOT_EQ   = "!=";
+
 }

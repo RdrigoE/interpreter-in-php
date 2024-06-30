@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repl;
+namespace App\Main;
 
 use App\Lexer\Lexer;
 use App\Token\TokenType;
@@ -31,9 +31,7 @@ class REPL
 				}
 				echo ($token);
 			}
-
+			echo ("\n");
 		}
 	}
 }
-
-REPL::start();
