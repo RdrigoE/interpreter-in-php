@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Ast;
+
 use App\Token\Token;
-use PhpParser\Node\Identifier;
+use App\Token\TokenType;
 
 interface Node
 {
@@ -11,38 +12,43 @@ interface Node
 
 interface Statement extends Node
 {
-	public function statement_node(): void;
+	public function statement_node();
 }
 
 interface Expression extends Node
 {
-	public function expression_node(): void;
+	public function expression_node();
 }
 
-class Identifier
+class Identifier implements Expression
 {
-	public TokenType $token;
+	public Token $token;
 	public string $value;
+
+	public function expression_node()
+	{
+	}
+	public function token_literal(): string
+	{
+		return $this->token->literal;
+	}
+
 }
-class LetStatement
+class LetStatement implements Statement
 {
 	public Token $token;
 	public Identifier $name;
-	public Token $token;
+	public Expression $value;
+
+
+	public function statement_node()
+	{
+	}
+	public function token_literal(): string
+	{
+		return $this->token->literal;
+	}
 }
-type LetStatement struct {
-Token token.Token // the token.LET token
-Name *Identifier
-Value Expression
-}
-func (ls *LetStatement) statementNode() {}
-func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
-type Identifier struct {
-Token token.Token // the token.IDENT token
-Value string
-}
-func (i *Identifier) expressionNode() {}
-func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
 
 class Program
 {
