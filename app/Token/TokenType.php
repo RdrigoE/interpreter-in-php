@@ -19,6 +19,12 @@ enum TokenType: string
 	// Keywords;
 	case FUNCTION = "FUNCTION";
 	case LET      = "LET";
+	case TRUE     = "TRUE";
+	case FALSE    = "FALSE";
+	case IF       = "IF";
+	case
+	ELSE     = "ELSE";
+	case RETURN   = "RETURN";
 	// Operators
 	case ASSIGN   = "=";
 	case PLUS     = "+";
@@ -28,4 +34,6 @@ enum TokenType: string
 	case SLASH    = "/";
 	case LT       = "<";
 	case GT       = ">";
+	case EQ       = "==";
+	case NOT_EQ   = "!=";
 }

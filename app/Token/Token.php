@@ -18,4 +18,10 @@ class Token
 		$this->type    = $type;
 		$this->literal = $literal;
 	}
+
+	public function __tostring(): string
+	{
+		return "$this->type ($this->literal)";
+
+	}
 }

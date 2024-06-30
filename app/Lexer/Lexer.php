@@ -14,8 +14,14 @@ class Lexer
 
 	/** @var array<string, TokenType> KEYWORDS  */
 	const KEYWORDS = [
-		'fn'  => TokenType::FUNCTION ,
-		'let' => TokenType::LET,
+		'fn'     => TokenType::FUNCTION ,
+		'let'    => TokenType::LET,
+		"true"   => TokenType::TRUE,
+		"false"  => TokenType::FALSE,
+		"if"     => TokenType::IF ,
+		"else"   => TokenType::
+			ELSE ,
+		"return" => TokenType::RETURN ,
 	];
 
 	public function __construct(string $input)
@@ -34,16 +40,36 @@ class Lexer
 		switch ($this->ch)
 		{
 			case '=':
-				$tok = new Token(TokenType::ASSIGN, $this->ch);
+				if ($this->peek_char() == '=')
+				{
+					$current_ch = $this->ch;
+					$this->read_char();
+					$tok = new Token(TokenType::EQ, $current_ch.$this->ch);
+				}
+				else
+				{
+					$tok = new Token(TokenType::ASSIGN, $this->ch);
+				}
+
+				break;
+
+			case '!':
+				if ($this->peek_char() == '=')
+				{
+					$current_ch = $this->ch;
+					$this->read_char();
+					$tok = new Token(TokenType::NOT_EQ, $current_ch.$this->ch);
+				}
+				else
+				{
+					$tok = new Token(TokenType::BANG, $this->ch);
+				}
 				break;
 			case '+':
 				$tok = new Token(TokenType::PLUS, $this->ch);
 				break;
 			case '-':
 				$tok = new Token(TokenType::MINUS, $this->ch);
-				break;
-			case '!':
-				$tok = new Token(TokenType::BANG, $this->ch);
 				break;
 			case '/':
 				$tok = new Token(TokenType::SLASH, $this->ch);
@@ -99,6 +125,19 @@ class Lexer
 
 		$this->read_char();
 		return $tok;
+	}
+
+	/**
+	 * Checks what is the next char if available
+	 * @return int|string
+	 */
+	private function peek_char()
+	{
+		if ($this->read_position >= strlen($this->input))
+		{
+			return 0;
+		}
+		return $this->input[$this->read_position];
 	}
 
 	private function skip_whitespace(): void
